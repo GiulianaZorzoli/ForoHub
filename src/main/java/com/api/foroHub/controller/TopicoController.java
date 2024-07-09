@@ -24,6 +24,7 @@ public class TopicoController {
     @Autowired
     private TopicoService topicoService;
 
+
     @PostMapping
     @Transactional
     public ResponseEntity<DatosRespuestaTopico> crearTopico(@RequestBody @Valid DatosCrearTopico datosCrearTopico, UriComponentsBuilder uriComponentsBuilder){
@@ -31,6 +32,7 @@ public class TopicoController {
         URI url = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(respuesta.id()).toUri();
         return ResponseEntity.created(url).body(respuesta);
     }
+
 
     @GetMapping
     public ResponseEntity<Page<DatosListadoTopicos>> listarTopicos(@Parameter @PageableDefault(size=3)Pageable pageable){
@@ -74,4 +76,5 @@ public class TopicoController {
         topicoService.borrarTopico(id);
         return ResponseEntity.noContent().build();
     }
+
  }

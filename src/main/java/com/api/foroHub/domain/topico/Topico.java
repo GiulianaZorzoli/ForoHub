@@ -1,6 +1,7 @@
 package com.api.foroHub.domain.topico;
 
 import com.api.foroHub.domain.curso.Curso;
+import com.api.foroHub.domain.respuesta.Respuesta;
 import com.api.foroHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -36,6 +39,9 @@ public class Topico {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "curso_id")
     private Curso curso;
+
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Respuesta> respuestas =new ArrayList<>();
 
     public Topico(DatosCrearTopico datosCrearTopico, Usuario user, Curso curso) {
         this.titulo=datosCrearTopico.titulo();
